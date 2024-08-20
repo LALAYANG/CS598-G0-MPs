@@ -58,14 +58,31 @@ def read_jsonl(file_path):
 def write_jsonl(dicts, file_path):
     with jsonlines.open(file_path, "w") as f:
         for item in dicts:
-            f.write_all([item])
+            f.write_all([dicts[item]])
 
 if __name__ == "__main__":
+    """
+    This Python script is to run prompt LLMs for code synthesize.
+    Usage:
+    `python3 model_prompting.py <input_dataset> <model> <output_file> <if_quantization>`|& tee prompt.log
+
+    Inputs:
+    - <input_dataset>: A `.jsonl` file, which should be your team's dataset containing 20 HumanEval problems.
+    - <model>: Specify the model to use. Options are "deepseek-ai/deepseek-coder-6.7b-base" or "deepseek-ai/deepseek-coder-6.7b-instruct".
+    - <output_file>: A `.jsonl` file where the results will be saved.
+    - <if_quantization>: Set to 'True' or 'False' to enable or disable model quantization.
+    
+    Outputs:
+    - You can check <output_file> for detailed information.
+    """
     args = sys.argv[1:]
     dataset_jsonl = args[0]
     model = args[1]
     file_path = args[2]
     if_quatization = args[3] # True or False
+    
+    if not dataset_jsonl.endswith(".jsonl"):
+        raise ValueError(f"{dataset_jsonl} should be a `.jsonl` file!")
     
     if not file_path.endswith(".jsonl"):
         raise ValueError(f"{file_path} should be a `.jsonl` file!")
