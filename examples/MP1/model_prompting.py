@@ -35,17 +35,17 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
                 torch_dtype=torch.bfloat16
                 )
 
-    base_prompt = "Can you synthesize the following Python code?"
-    results = {}
+    # base_prompt = "Can you synthesize the following Python code?"
+    results = []
     for case in dataset:
-        prompt = f"{base_prompt}\n{case['prompt']}"
+        # prompt = f"{base_prompt}\n{case['prompt']}"
+        prompt = case['prompt']
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-        outputs = model.generate(**inputs, max_length=1024)
+        outputs = model.generate(**inputs, max_length=500)
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(f"Task_ID {case['task_id']}:\nPrompt:\n{prompt}\nResponse:\n{response}")
         if case["task_id"] not in results:
-            results[case["task_id"]] = case.copy()
-        results[case["task_id"]].update({"response": response})
+            results.append(dict(task_id=case["task_id"], completion=response))
     return results
 
 def read_jsonl(file_path):
@@ -55,10 +55,10 @@ def read_jsonl(file_path):
             dataset.append(line)
     return dataset
 
-def write_jsonl(dicts, file_path):
+def write_jsonl(results, file_path):
     with jsonlines.open(file_path, "w") as f:
-        for item in dicts:
-            f.write_all([dicts[item]])
+        for item in results:
+            f.write_all([item])
 
 if __name__ == "__main__":
     """
