@@ -76,19 +76,19 @@ if __name__ == "__main__":
     - You can check <output_file> for detailed information.
     """
     args = sys.argv[1:]
-    dataset_jsonl = args[0]
+    input_dataset = args[0]
     model = args[1]
-    file_path = args[2]
+    output_file = args[2]
     if_quatization = args[3] # True or False
     
-    if not dataset_jsonl.endswith(".jsonl"):
-        raise ValueError(f"{dataset_jsonl} should be a `.jsonl` file!")
+    if not input_dataset.endswith(".jsonl"):
+        raise ValueError(f"{input_dataset} should be a `.jsonl` file!")
     
-    if not file_path.endswith(".jsonl"):
-        raise ValueError(f"{file_path} should be a `.jsonl` file!")
+    if not output_file.endswith(".jsonl"):
+        raise ValueError(f"{output_file} should be a `.jsonl` file!")
     
     quatization = True if if_quatization == "True" else False
     
-    dataset = read_jsonl(dataset_jsonl)
+    dataset = read_jsonl(input_dataset)
     results = prompt_model(dataset, model, quatization)
-    write_jsonl(results, file_path)
+    write_jsonl(results, output_file)
