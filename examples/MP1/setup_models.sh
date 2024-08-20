@@ -1,4 +1,3 @@
-pip3 install datasets==2.16.1
 pip3 install bitsandbytes==0.40.0
 pip3 install transformers==4.31.0
 pip3 install peft==0.4.0
