@@ -21,7 +21,7 @@ def select_random_problems(netIDs, num_problems=20):
 
     problems = list(dataset['test'])
     selected_problems = random.sample(problems, num_problems)
-    selected_problems_output = "selected_humaneval.jsonl"
+    selected_problems_output = f"selected_humaneval_{seed}.jsonl"
     with open(selected_problems_output, "w") as f:
         for problem in selected_problems:
             f.write(f"{problem}\n")
