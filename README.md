@@ -6,4 +6,6 @@
 - [Team member3], [NetID]
 
 ## Link of Google Colab Notebook
-- [Your link here]
+- [Link for MP1]
+- [Link for MP2]
+- ...
