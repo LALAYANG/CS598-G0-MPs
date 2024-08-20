@@ -62,7 +62,7 @@ def write_jsonl(dicts, file_path):
 
 if __name__ == "__main__":
     """
-    This Python script is to run prompt LLMs for code synthesize.
+    This Python script is to run prompt LLMs for code synthesis.
     Usage:
     `python3 model_prompting.py <input_dataset> <model> <output_file> <if_quantization>`|& tee prompt.log
 
