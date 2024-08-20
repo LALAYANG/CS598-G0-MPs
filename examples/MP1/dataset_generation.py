@@ -1,6 +1,7 @@
 import sys
 import random
 import hashlib
+import jsonlines
 from datasets import load_dataset
 
 def generate_seed(netIDs):
@@ -14,17 +15,17 @@ def select_random_problems(netIDs, num_problems=20):
     
     dataset = load_dataset("openai_humaneval")
     all_problems_output = "humaneval.jsonl"
-    with open(all_problems_output, "w") as f:
+    with jsonlines.open(all_problems_output, "w") as f:
         for item in dataset['test']:
-            f.write(f"{item}\n")
+            f.write_all([item])
     print(f"Entire Dataset saved to {all_problems_output}")
 
     problems = list(dataset['test'])
     selected_problems = random.sample(problems, num_problems)
     selected_problems_output = f"selected_humaneval_{seed}.jsonl"
-    with open(selected_problems_output, "w") as f:
-        for problem in selected_problems:
-            f.write(f"{problem}\n")
+    with jsonlines.open(selected_problems_output, "w") as f:
+        for item in selected_problems:
+            f.write_all([item])
     print(f"Selected {num_problems} problems saved to {selected_problems_output}")
 
 if __name__ == "__main__":
