@@ -20,6 +20,7 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
                 torch_dtype=torch.bfloat16,
+                temperature=0,
                 quantization_config=BitsAndBytesConfig(
                     load_in_4bit=True,
                     bnb_4bit_compute_dtype=torch.bfloat16,
@@ -32,7 +33,8 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
         model = AutoModelForCausalLM.from_pretrained(
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
-                torch_dtype=torch.bfloat16
+                torch_dtype=torch.bfloat16,
+                temperature=0,
                 )
 
     # base_prompt = "Can you synthesize the following Python code?"
