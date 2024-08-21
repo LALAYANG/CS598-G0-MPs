@@ -1,8 +1,12 @@
-import os
-import sys
 import jsonlines
+import sys
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+
+#####################################################
+# Please finish all TODOs in this file to finish MP1;
+# do not change other functions/formatting.
+#####################################################
 
 def save_file(content, file_path):
     with open(file_path, 'w') as file:
@@ -11,11 +15,11 @@ def save_file(content, file_path):
 def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", quatization = True):
     print(f"Working with {model_name} quatization {quatization}...")
     
-    # download the model
+    # TODO: download the model
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
   
     if quatization:
-        # loading with quatization
+        # TODO: load the model with quatization
         model = AutoModelForCausalLM.from_pretrained(
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
@@ -29,7 +33,7 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
                 ),
             )
     else:
-        # loading without quatization
+        # TODO: load the model without quatization
         model = AutoModelForCausalLM.from_pretrained(
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
@@ -37,11 +41,10 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
                 temperature=0,
                 )
 
-    # base_prompt = "Can you synthesize the following Python code?"
     results = []
     for case in dataset:
-        # prompt = f"{base_prompt}\n{case['prompt']}"
         prompt = case['prompt']
+        # TODO: prompt the model and get the response
         inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
         outputs = model.generate(**inputs, max_length=500)
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
