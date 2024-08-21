@@ -4,7 +4,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 #####################################################
-# Please finish all TODOs in this file to finish MP1;
+# Please finish all TODOs in this file for MP1;
 # do not change other functions/formatting.
 #####################################################
 
@@ -12,14 +12,14 @@ def save_file(content, file_path):
     with open(file_path, 'w') as file:
         file.write(content)
 
-def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", quatization = True):
-    print(f"Working with {model_name} quatization {quatization}...")
+def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", quantization = True):
+    print(f"Working with {model_name} quantization {quantization}...")
     
     # TODO: download the model
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
   
-    if quatization:
-        # TODO: load the model with quatization
+    if quantization:
+        # TODO: load the model with quantization
         model = AutoModelForCausalLM.from_pretrained(
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
@@ -33,7 +33,7 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
                 ),
             )
     else:
-        # TODO: load the model without quatization
+        # TODO: load the model without quantization
         model = AutoModelForCausalLM.from_pretrained(
                 pretrained_model_name_or_path=model_name,
                 device_map='auto',
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     input_dataset = args[0]
     model = args[1]
     output_file = args[2]
-    if_quatization = args[3] # True or False
+    if_quantization = args[3] # True or False
     
     if not input_dataset.endswith(".jsonl"):
         raise ValueError(f"{input_dataset} should be a `.jsonl` file!")
@@ -91,8 +91,8 @@ if __name__ == "__main__":
     if not output_file.endswith(".jsonl"):
         raise ValueError(f"{output_file} should be a `.jsonl` file!")
     
-    quatization = True if if_quatization == "True" else False
+    quantization = True if if_quantization == "True" else False
     
     dataset = read_jsonl(input_dataset)
-    results = prompt_model(dataset, model, quatization)
+    results = prompt_model(dataset, model, quantization)
     write_jsonl(results, output_file)

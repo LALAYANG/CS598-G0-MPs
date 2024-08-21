@@ -4,8 +4,9 @@ import hashlib
 import jsonlines
 from datasets import load_dataset
 
-"""Please do not change this file when doing MP1.
-"""
+################################################
+# Please do not change this file when doing MP1.
+################################################
 
 def generate_seed(netIDs):
     seed = int(hashlib.md5('_'.join(netIDs).encode()).hexdigest(), 16)
