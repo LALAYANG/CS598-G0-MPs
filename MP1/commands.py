@@ -31,7 +31,7 @@ input_dataset = "selected_humaneval_[seed].jsonl generated in the previous step"
 ! python3 MP1/model_prompting.py {input_dataset} "deepseek-ai/deepseek-coder-6.7b-instruct" "instruct_with_quantization.jsonl" "True" |& tee prompt_instruct_with_quantization.log
 ! python3 MP1/model_prompting.py {input_dataset} "deepseek-ai/deepseek-coder-6.7b-base" "base_without_quantization.jsonl" "False" |& tee prompt_base_without_quantization.log
 
-# evaluate the results
+# evaluate the results to get pass@k
 ! evaluate_functional_correctness "base_with_quantization.jsonl" |& tee evaluate_base_with_quantization.log
 ! evaluate_functional_correctness "instruct_with_quantization.jsonl" |& tee evaluate_instruct_with_quantization.log
 ! evaluate_functional_correctness "base_without_quantization.jsonl" |& tee evaluate_base_without_quantization.log
