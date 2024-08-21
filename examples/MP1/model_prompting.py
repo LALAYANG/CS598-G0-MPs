@@ -44,8 +44,7 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-base", q
         outputs = model.generate(**inputs, max_length=500)
         response = tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(f"Task_ID {case['task_id']}:\nPrompt:\n{prompt}\nResponse:\n{response}")
-        if case["task_id"] not in results:
-            results.append(dict(task_id=case["task_id"], completion=response))
+        results.append(dict(task_id=case["task_id"], completion=response))
     return results
 
 def read_jsonl(file_path):
