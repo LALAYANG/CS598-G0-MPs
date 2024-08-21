@@ -1,4 +1,4 @@
-# CS598-G0-MPs
+# CS598JBR-Team-0
 
 ## Group members
 - [Team member1], [NetID]
