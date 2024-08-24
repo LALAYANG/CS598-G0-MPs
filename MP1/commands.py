@@ -2,7 +2,7 @@
 # This is a list of all commands you need to run for MP1 on Colab.
 ###################################################################
 
-# TODO: Update Your NetIDs
+# TODO: Update Your NetIDs in alphabetical order
 NetIDs = ["sampleID1", "sampleID2", "sampleID3", "sampleID4"]
 NetIDs_str = " ".join(NetIDs)
 
