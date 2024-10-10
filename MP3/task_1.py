@@ -44,7 +44,6 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-instruct
         "controlflow_change_response" : controlflow_change_response
       })
 
-        
     return results
 
 def read_jsonl(file_path):
@@ -63,7 +62,7 @@ if __name__ == "__main__":
     """
     This Python script is to run prompt LLMs for code synthesis.
     Usage:
-    `python3 Task_[ID].py <input_dataset> <model> <output_file> <if_localize>`|& tee prompt.log
+    `python3 task_1.py <input_dataset> <model> <output_file> <if_localize>`|& tee prompt.log
 
     Inputs:
     - <input_dataset>: A `.jsonl` file, which should be your team's dataset containing 20 HumanEval problems.
@@ -78,15 +77,12 @@ if __name__ == "__main__":
     input_dataset = args[0]
     model = args[1]
     output_file = args[2]
-    if_localize = args[3] # True or False
     
     if not input_dataset.endswith(".jsonl"):
         raise ValueError(f"{input_dataset} should be a `.jsonl` file!")
     
     if not output_file.endswith(".jsonl"):
         raise ValueError(f"{output_file} should be a `.jsonl` file!")
-    
-    localize = True if if_localize == "True" else False
     
     dataset = read_jsonl(input_dataset)
     results = prompt_model(dataset, model, localize)
